@@ -4,7 +4,7 @@ import './Home.scss'
 import CSSTransition from 'react-transition-group/CSSTransition'
 
 import ConciseCard from '../../components/Card/ConsiceCard/ConciseCard';
-import { MovePicker } from '../../shared/interfaces'
+import { MovePicker } from '../../shared/ts/interfaces'
 
 const Home = () => {
     // States and hooks
@@ -26,7 +26,7 @@ const Home = () => {
         const svgChild = input.children[0] as HTMLElement;
         svgChild.style.color = "#1a73e8";
 
-        if (!selectedMove.position) {
+        if (!selectedMove['position']) {
             setSelectedMove(
                 {
                     position: input.innerText, technique: "",
@@ -45,6 +45,20 @@ const Home = () => {
         }
     }
 
+    const backButtonClickHandler = () => {
+        if (selectedMove['technique']) {
+            setSelectedMove(move => ({ ...move, technique: "", showTechnique: true }))
+        }
+
+        else if (selectedMove['position']) {
+            // Two seperate setters to game the animation so the position cards stop creating empty
+            // spaces above the moves 
+
+            setSelectedMove(move => ({ ...move, position: "", showTechnique: false }))
+            setTimeout(() => setSelectedMove(move => ({ ...move, position: "", showPosition: true, })), 1250)
+        }
+    }
+
     // Mapped variables
 
     const moveArray = [1, 2, 3, 4].map(e => {
@@ -60,7 +74,7 @@ const Home = () => {
     })
 
     // JSX
-    
+
     return (
         <div className='mb-4'>
             <div className='columns'>
@@ -68,6 +82,7 @@ const Home = () => {
                 <div className="buttons column is-narrow has-addons">
                     <button
                         className="button is-dark"
+                        onClick={backButtonClickHandler}
                         disabled={selectedMove['showPosition']}>Back</button>
 
                     <button
@@ -80,7 +95,7 @@ const Home = () => {
 
             <CSSTransition
                 nodeRef={positionNodeRef} in={selectedMove["showPosition"]}
-                timeout={1250} classNames="show-position-animation" unmountOnExit>
+                timeout={{ enter: 2200, exit: 1800 }} classNames="show-position-animation" unmountOnExit>
 
                 <div className="columns" ref={positionNodeRef}>
                     <div className='column'>
@@ -119,7 +134,7 @@ const Home = () => {
 
             <CSSTransition
                 nodeRef={techniqueNodeRef} in={selectedMove['showTechnique']}
-                timeout={2200} classNames="show-technique-animation" unmountOnExit>
+                timeout={{ enter: 2200, exit: 1800 }} classNames="show-position-animation" unmountOnExit>
 
                 <div className="columns" ref={techniqueNodeRef}>
                     {moveArray}

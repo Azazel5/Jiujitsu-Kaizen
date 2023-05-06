@@ -1,7 +1,7 @@
 import './ConciseCard.scss'
 
 import { AiFillCheckCircle } from "react-icons/ai";
-import { MovePicker } from '../../../shared/interfaces'
+import { MovePicker } from '../../../shared/ts/interfaces'
 
 interface Props {
     imageSrc: string,

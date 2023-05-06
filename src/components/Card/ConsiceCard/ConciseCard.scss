@@ -1,3 +1,5 @@
+@import "../../../shared/sass/animations.scss";
+
 .card {
     position: relative;
     cursor: pointer;
@@ -40,78 +42,13 @@
 }
 
 .show-position-animation {
-    &-exit {
-        -webkit-animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) 0.5s both;
-        animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) 0.5s both;
-    }
-}
-
-.show-technique-animation {
-    &-enter {
-        -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) 1.8s both;
-        animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) 1.8s both;
+    &-enter-active {
+        -webkit-animation: fade-in 1s cubic-bezier(0.39, 0.575, 0.565, 1) 2s both;
+        animation: fade-in 1s cubic-bezier(0.39, 0.575, 0.565, 1) 2s both;
     }
 
     &-exit {
-        -webkit-animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) 0.5s both;
-        animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) 0.5s both;
-    }
-}
-
-@-webkit-keyframes slide-out-blurred-right {
-    0% {
-        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-        transform: translateX(0) scaleY(1) scaleX(1);
-        -webkit-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-        -webkit-filter: blur(0);
-        filter: blur(0);
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: translateX(1000px) scaleX(2) scaleY(0.2);
-        transform: translateX(1000px) scaleX(2) scaleY(0.2);
-        -webkit-transform-origin: 0% 50%;
-        transform-origin: 0% 50%;
-        -webkit-filter: blur(40px);
-        filter: blur(40px);
-        opacity: 0;
-    }
-}
-@keyframes slide-out-blurred-right {
-    0% {
-        -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-        transform: translateX(0) scaleY(1) scaleX(1);
-        -webkit-transform-origin: 50% 50%;
-        transform-origin: 50% 50%;
-        -webkit-filter: blur(0);
-        filter: blur(0);
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: translateX(1000px) scaleX(2) scaleY(0.2);
-        transform: translateX(1000px) scaleX(2) scaleY(0.2);
-        -webkit-transform-origin: 0% 50%;
-        transform-origin: 0% 50%;
-        -webkit-filter: blur(40px);
-        filter: blur(40px);
-        opacity: 0;
-    }
-}
-
-@-webkit-keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
+        -webkit-animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) both;
+        animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) both;
     }
 }
