@@ -16,6 +16,10 @@ const Home = () => {
         }
     )
 
+    const [state, setState] = useState(false)
+
+    console.log(state)
+
     const positionNodeRef = useRef(null);
     const techniqueNodeRef = useRef(null);
 
@@ -36,6 +40,10 @@ const Home = () => {
         }
 
         else {
+            if (state) {
+                return
+            }
+
             setSelectedMove(move => {
                 return {
                     ...move, technique: input.innerText,
@@ -83,11 +91,11 @@ const Home = () => {
                     <button
                         className="button is-dark"
                         onClick={backButtonClickHandler}
-                        disabled={selectedMove['showPosition']}>Back</button>
+                        disabled={selectedMove['showPosition'] || state}>Back</button>
 
                     <button
                         className="button is-success"
-                        disabled={selectedMove['showPosition'] || selectedMove['showTechnique']}>
+                        disabled={selectedMove['showPosition'] || selectedMove['showTechnique'] || state}>
                         Find Moves
                     </button>
                 </div>
@@ -95,7 +103,9 @@ const Home = () => {
 
             <CSSTransition
                 nodeRef={positionNodeRef} in={selectedMove["showPosition"]}
-                timeout={{ enter: 2200, exit: 1800 }} classNames="show-position-animation" unmountOnExit>
+                timeout={{ enter: 2200, exit: 1800 }} classNames="show-position-animation" unmountOnExit
+                onEnter={() => setState(true)}
+                onExit={() => setState(false)}>
 
                 <div className="columns" ref={positionNodeRef}>
                     <div className='column'>
@@ -134,7 +144,11 @@ const Home = () => {
 
             <CSSTransition
                 nodeRef={techniqueNodeRef} in={selectedMove['showTechnique']}
-                timeout={{ enter: 2200, exit: 1800 }} classNames="show-position-animation" unmountOnExit>
+                timeout={{ enter: 2200, exit: 1800 }} classNames="show-position-animation" unmountOnExit
+                onEnter={() => setState(true)}
+                onEntered={() => setState(false)}
+                onExit={() => setState(true)}
+                onExited={() => setState(false)}>
 
                 <div className="columns" ref={techniqueNodeRef}>
                     {moveArray}
