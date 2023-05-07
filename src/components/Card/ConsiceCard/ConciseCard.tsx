@@ -1,16 +1,17 @@
 import './ConciseCard.scss'
 
 import { AiFillCheckCircle } from "react-icons/ai";
-import { MovePicker } from '../../../shared/ts/interfaces'
 
 interface Props {
     imageSrc: string,
     cardTitle: string,
     cardClickHandler: (e: React.MouseEvent<HTMLDivElement>) => void,
-    selectedMove: MovePicker
+    extraKeywords?: Array<String>
 }
 
-const ConciseCard = ({ imageSrc, cardTitle, cardClickHandler, selectedMove }: Props): JSX.Element => {
+const ConciseCard = (props: Props): JSX.Element => {
+    const { imageSrc, cardTitle, cardClickHandler, extraKeywords } = props
+
     return (
         <div className="card" onClick={(e) => cardClickHandler(e)}>
             <AiFillCheckCircle />
@@ -18,6 +19,12 @@ const ConciseCard = ({ imageSrc, cardTitle, cardClickHandler, selectedMove }: Pr
             <div className="card-content has-text-centered">
                 <p className="subtitle is-4">{cardTitle}</p>
             </div>
+
+            {extraKeywords && (
+                <footer className="card-footer">
+                    {extraKeywords.map(word => <div className='card-footer-item'>{word}</div>)}
+                </footer>
+            )}
         </div>
     )
 }

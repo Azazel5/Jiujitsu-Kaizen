@@ -43,12 +43,12 @@
 
 .show-position-animation {
     &-enter-active {
-        -webkit-animation: fade-in 1s cubic-bezier(0.39, 0.575, 0.565, 1) 2s both;
-        animation: fade-in 1s cubic-bezier(0.39, 0.575, 0.565, 1) 2s both;
+        -webkit-animation: fade-in 1s cubic-bezier(0.39, 0.575, 0.565, 1) 1s both;
+        animation: fade-in 1s cubic-bezier(0.39, 0.575, 0.565, 1) 1s both;
     }
 
     &-exit {
-        -webkit-animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) both;
-        animation: slide-out-blurred-right 0.75s cubic-bezier(0.755, 0.05, 0.855, 0.06) both;
+        -webkit-animation: fade-out 1s ease-out both;
+        animation: fade-out 1s ease-out both;
     }
 }
