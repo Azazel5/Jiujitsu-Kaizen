@@ -1,33 +1,42 @@
-const TalkativeCard = () => {
+import { TalkativeCardProps } from "../../../shared/ts/interfaces";
+
+const TalkativeCard = (props: TalkativeCardProps) => {
+    const { imageSrc, cardTitle, cardClickHandler, channelName, channelId, channelAvatar, extraKeywords, video_length } = props
 
     return (
         <div className="card">
             <div className="card-image">
                 <figure className="image is-4by3">
-                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder" />
+                    <img src={imageSrc} alt="Placeholder" />
                 </figure>
             </div>
             <div className="card-content">
                 <div className="media">
                     <div className="media-left">
                         <figure className="image is-48x48">
-                            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder" />
+                            <img src={channelAvatar} alt="Placeholder" />
                         </figure>
                     </div>
                     <div className="media-content">
-                        <p className="title is-4">John Smith</p>
-                        <p className="subtitle is-6">@johnsmith</p>
+                        <p className="title is-4">{cardTitle}</p>
+                        <div className="content">
+                            <p className="subtitle is-size-4">{channelName}</p>
+                        </div>
+
+                        <p className="subtitle is-6">{channelId}</p>
+                    </div>
+
+                    <div className="media-right mt-auto">
+                        <p className="subtitle is-6 has-text-weight-semibold">Video length: {video_length}</p>
                     </div>
                 </div>
-
-                <div className="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                    <a href="#">#css</a> <a href="#">#responsive</a>
-                    <br />
-                        <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                </div>
             </div>
+
+            {extraKeywords && extraKeywords.length > 0 && (
+                <footer className="card-footer">
+                    {extraKeywords.map((word, index) => <div key={`${word}${index}`} className='card-footer-item'>{word}</div>)}
+                </footer>
+            )}
         </div>
     )
 }

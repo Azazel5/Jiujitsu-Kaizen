@@ -4,7 +4,8 @@ import './Home.scss'
 import CSSTransition from 'react-transition-group/CSSTransition'
 
 import ConciseCard from '../../components/Card/ConsiceCard/ConciseCard';
-import { MovePicker } from '../../shared/ts/interfaces'
+import TalkativeCard from '../../components/Card/TalkativeCard/TalkativeCard';
+import { MovePicker, Video } from '../../shared/ts/interfaces'
 import AndreGalvao from '../../andre_galvao.json'
 
 const Home = () => {
@@ -17,6 +18,49 @@ const Home = () => {
         }
     )
 
+    const [listVideos, setListVideos] = useState<Video>({
+        "channelName": "",
+        "channelId": "",
+        "channelAvatar": "",
+        "video_title": "",
+        "video_url": "",
+        "uniform": "",
+        "position": "",
+        "technique": {
+            "type": "",
+            "keywords": []
+        },
+        "video_static_thumbnails": [
+            {
+                "url": "",
+                "width": 0,
+                "height": 0
+            },
+            {
+                "url": "",
+                "width": 0,
+                "height": 0
+            },
+            {
+                "url": "",
+                "width": 0,
+                "height": 0
+            },
+            {
+                "url": "",
+                "width": 0,
+                "height": 0
+            }
+        ],
+        "video_moving_thumbnails": [
+            {
+                "url": "",
+                "width": 0,
+                "height": 0
+            }
+        ],
+        "video_length": ""
+    })
     const [blockAnimations, setBlockAnimations] = useState(false)
 
     const positionNodeRef = useRef(null);
@@ -52,6 +96,10 @@ const Home = () => {
         }
     }
 
+    const talkativeCardClickHandler = () => {
+        console.log("TALKATIVE")
+    }
+
     const backButtonClickHandler = () => {
         if (selectedMove['technique']) {
             setSelectedMove(move => ({ ...move, technique: "", showTechnique: true }))
@@ -64,6 +112,10 @@ const Home = () => {
             setSelectedMove(move => ({ ...move, position: "", showTechnique: false }))
             setTimeout(() => setSelectedMove(move => ({ ...move, position: "", showPosition: true, })), 1250)
         }
+    }
+
+    const findMoveButtonClickHandler = () => {
+        setListVideos(AndreGalvao[0])
     }
 
     // Mapped/Normal variables
@@ -88,7 +140,7 @@ const Home = () => {
                     imageSrc='https://cdn.evolve-mma.com/wp-content/uploads/2021/04/bjj-full-guard.jpg'
                     cardTitle={pos}
                     cardClickHandler={conciseCardClickHandler}
-                    // extraKeywords={restKeywords && restKeywords} />
+                // extraKeywords={restKeywords && restKeywords} />
                 />
             </div>
         )
@@ -130,6 +182,7 @@ const Home = () => {
 
                     <button
                         className="button is-success"
+                        onClick={findMoveButtonClickHandler}
                         disabled={selectedMove['showPosition'] || selectedMove['showTechnique'] || blockAnimations}>
                         Find Moves
                     </button>
@@ -159,6 +212,17 @@ const Home = () => {
                     {techniqueCards}
                 </div>
             </CSSTransition>
+
+            {listVideos['video_title'] && <TalkativeCard
+                imageSrc={listVideos!.video_moving_thumbnails![0].url || listVideos['video_static_thumbnails'][3]['url']}
+                cardTitle={listVideos['video_title']}
+                cardClickHandler={talkativeCardClickHandler}
+                channelName={listVideos['channelName']}
+                channelId={listVideos['channelId']}
+                channelAvatar={listVideos['channelAvatar']}
+                extraKeywords={listVideos['technique']['keywords']}
+                video_length={listVideos['video_length']}
+            />}
         </div>
     )
 }
